@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-[#1F2937] min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-gray-800 text-white p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="text-2xl font-bold">
+                <span class="text-orange-500">Pro</span>Portal
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <a href="#" class="hover:text-orange-400">Home</a>
+                <a href="#" class="hover:text-orange-400">Features</a>
+                <a href="#" class="hover:text-orange-400">Pricing</a>
+               
+
+            </div>
+            <button class="md:hidden text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="text-white py-20 px-4">
+        <div class="container mx-auto flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">Welcome to <span class="text-orange-500">ProPortal</span></h1>
+                <p class="text-gray-300 text-lg mb-8">The professional platform designed to help you succeed. Join our community of professionals today.</p>
+                <div class="flex space-x-4">
+                    <a href="/signup" class="bg-orange-600 hover:bg-orange-700 text-white font-medium py-3 px-6 rounded-lg transition duration-200">
+                        Get Started
+                    </a>
+                    <a href="#" class="bg-gray-700 hover:bg-gray-600 text-white font-medium py-3 px-6 rounded-lg transition duration-200">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+            <div class="md:w-1/2">
+                <!-- Replace with your hero image -->
+                <div class="bg-gray-700 rounded-xl p-4">
+                    <img src="your-hero-image.jpg" alt="Professional collaboration" class="rounded-lg w-full h-auto">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-16 px-4 bg-gray-800">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-white text-center mb-12">Our Features</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-gray-700 p-6 rounded-lg">
+                    <div class="text-orange-500 mb-4">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Secure Platform</h3>
+                    <p class="text-gray-300">Enterprise-grade security to protect your professional data and communications.</p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="bg-gray-700 p-6 rounded-lg">
+                    <div class="text-orange-500 mb-4">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Professional Network</h3>
+                    <p class="text-gray-300">Connect with other professionals in your field and expand your opportunities.</p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="bg-gray-700 p-6 rounded-lg">
+                    <div class="text-orange-500 mb-4">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Powerful Tools</h3>
+                    <p class="text-gray-300">Everything you need to manage your professional profile in one place.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8 px-4">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <div class="text-2xl font-bold">
+                        <span class="text-orange-500">Pro</span>Portal
+                    </div>
+                    <p class="text-gray-400 mt-2">The professional's platform of choice</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-orange-400">Terms</a>
+                    <a href="#" class="text-gray-400 hover:text-orange-400">Privacy</a>
+                    <a href="#" class="text-gray-400 hover:text-orange-400">Contact</a>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500">
+                &copy; 2025 ProPortal. All rights reserved.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

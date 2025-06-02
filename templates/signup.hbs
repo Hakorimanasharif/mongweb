@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sign Up</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="flex min-h-screen">
+    <!-- Left Panel with Image -->
+    <div class="hidden md:flex w-1/2 bg-gray-100 items-center justify-center p-12">
+        <!-- Replace this div with your actual image -->
+        <div class="bg-gray-20 w-full h-full flex items-center justify-center">
+            <img src="/free.png" alt="Professional illustration" class="object-cover w-full h-full">
+        </div>
+    </div>
+
+    <!-- Right Panel with Signup Form -->
+    <div class="w-full md:w-1/2 bg-[#1F2937] flex items-center justify-center p-8">
+        <div class="w-full max-w-md">
+            <h1 class="text-3xl font-bold text-white mb-2">Sign Up</h1>
+            <p class="text-gray-300 mb-8">Join our professional community</p>
+            
+            <form action="/signup" method="POST" class="space-y-6">
+                <div>
+                    <label for="name" class="block text-gray-300 mb-2">Username</label>
+                    <input type="text" id="name" name="name" required 
+                           class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-white placeholder-gray-400" 
+                           placeholder="Enter your username" />
+                </div>
+                
+                <div>
+                    <label for="password" class="block text-gray-300 mb-2">Password</label>
+                    <input type="password" id="password" name="password" required 
+                           class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-white placeholder-gray-400" 
+                           placeholder="••••••••" />
+                </div>
+                
+                <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-medium py-3 px-4 rounded-lg transition duration-200">
+                    Sign Up
+                </button>
+            </form>
+            
+            <p class="mt-4 text-center text-gray-300">
+                Already have an account? <a href="/" class="text-orange-400 hover:text-orange-300 hover:underline">Login</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
