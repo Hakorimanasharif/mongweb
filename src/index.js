@@ -260,6 +260,37 @@ app.get('/auth/facebook/callback',
         res.redirect('/home');
     });
 
+const axios = require('axios');
+
+app.post('/api/nexa-chat', async (req, res) => {
+    const userMessage = req.body.message;
+    const openaiApiKey = process.env.OPENAI_API_KEY;
+
+    if (!openaiApiKey) {
+        return res.status(500).json({ error: 'OpenAI API key not configured' });
+    }
+
+    try {
+        const response = await axios.post('https://api.openai.com/v1/chat/completions', {
+            model: 'gpt-3.5-turbo',
+            messages: [{ role: 'user', content: userMessage }],
+            max_tokens: 150,
+            temperature: 0.7
+        }, {
+            headers: {
+                'Authorization': `Bearer ${openaiApiKey}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        const botReply = response.data.choices[0].message.content;
+        res.json({ reply: botReply });
+    } catch (error) {
+        console.error('Error communicating with OpenAI:', error);
+        res.status(500).json({ error: 'Error communicating with AI service' });
+    }
+});
+
 app.listen(3000, () => {
     console.log('Server is running on http://localhost:3000');
 });

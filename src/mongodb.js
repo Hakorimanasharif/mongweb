@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/LoginSignUpTutorial')
+mongoose.connect('mongodb+srv://hakorimanasharif12:Hakorimana12@cluster0.we3s9v8.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
 .then(() => {
     console.log('Connected to MongoDB');
 })
@@ -22,4 +22,4 @@ const Loginschema = new mongoose.Schema({
 
 const collection = mongoose.model('Collection1', Loginschema);
 
-module.exports = collection
+module.exports = collection;
