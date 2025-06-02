@@ -143,6 +143,51 @@ app.get('/login', (req, res) => {
     res.render('login');
 });
 
+app.get('/forgot-password', (req, res) => {
+    res.render('forgot-password');
+});
+
+const nodemailer = require('nodemailer');
+
+app.post('/forgot-password', async (req, res) => {
+    try {
+        const email = req.body.email;
+
+        // Create reusable transporter object using SMTP transport
+        let transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'hakorimanasharif12@gmail.com', // Your email
+                pass: process.env.EMAIL_PASSWORD || 'your_email_password'   // Use environment variable or replace with your email password or app password
+            }
+        });
+
+        // Generate a reset token (for demo, a simple random string)
+        const resetToken = Math.random().toString(36).substr(2);
+
+        // TODO: Save resetToken and associate with user in DB with expiration
+
+        // Compose reset link
+        const resetLink = `http://localhost:3000/reset-password?token=${resetToken}`;
+
+        // Send mail with defined transport object
+        let info = await transporter.sendMail({
+            from: '"Kegelson Support" <your_email@gmail.com>', // sender address
+            to: email, // list of receivers
+            subject: "Password Reset Request", // Subject line
+            text: `You requested a password reset. Click the link to reset your password: ${resetLink}`, // plain text body
+            html: `<p>You requested a password reset.</p><p>Click the link to reset your password: <a href="${resetLink}">${resetLink}</a></p>` // html body
+        });
+
+        console.log("Message sent: %s", info.messageId);
+
+        res.render('login', { error: 'Password reset link sent to your email.' });
+    } catch (error) {
+        console.error('Error sending password reset email:', error);
+        res.status(500).send('Error processing password reset');
+    }
+});
+
 app.get('/signup', (req, res) => {
     res.render('signup');
 });
