@@ -1,9 +1,12 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv://hakorimanasharif12:Hakorimana12@cluster0.we3s9v8.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+const uri = process.env.MONGODB_URI || 'mongodb+srv://hakorimanasharif12:nQwgHHW7obwZ92N4@cluster0.we3s9v8.mongodb.net/test';
+
+mongoose.connect(uri)
 .then(() => {
     console.log('Connected to MongoDB');
 })
+//api_url=http://localhost:3000
 .catch((err) => {
     console.error('Error connecting to MongoDB:', err);
 });
