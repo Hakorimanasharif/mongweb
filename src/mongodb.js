@@ -20,7 +20,20 @@ const Loginschema = new mongoose.Schema({
         type: String,
         required: true,
         
-    }
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
+    lastSeen: {
+        type: Date,
+        default: Date.now
+    },
+    messages: [{
+        sender: String,
+        text: String,
+        timestamp: Date
+    }]
 });
 
 const collection = mongoose.model('Collection1', Loginschema);
