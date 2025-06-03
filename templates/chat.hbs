@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Chat Room</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #e50914;
+            --primary-dark: #b00710;
+            --secondary: #1a1a1a;
+            --dark: #0d0d0d;
+            --light-dark: #1f1f1f;
+            --text: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #121212 100%);
+            color: var(--text);
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .chat-container {
+            display: flex;
+            height: 100vh;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 300px;
+            background: linear-gradient(145deg, var(--dark), var(--secondary));
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .current-user {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .current-user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .current-user-info h3 {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .current-user-status {
+            display: flex;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #4caf50;
+            margin-right: 5px;
+        }
+        
+        .section-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+            margin: 20px 0 15px;
+        }
+        
+        .user-list {
+            list-style: none;
+        }
+        
+        .user-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .user-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .user-item.active {
+            background: rgba(229, 9, 20, 0.15);
+            border-left: 3px solid var(--primary);
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+        
+        .user-info {
+            flex: 1;
+        }
+        
+        .user-name {
+            font-weight: 500;
+            margin-bottom: 3px;
+        }
+        
+        .user-status {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        
+        .status-online {
+            color: #4caf50;
+        }
+        
+        .status-offline {
+            color: #f44336;
+        }
+        
+        /* Main Chat Area */
+        .chat-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chat-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            background: var(--dark);
+        }
+        
+        .chat-title {
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        
+        #messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: url('https://www.transparenttextures.com/patterns/dark-fish-skin.png') repeat;
+        }
+        
+        .message {
+            margin-bottom: 15px;
+            padding: 12px 18px;
+            border-radius: 18px;
+            max-width: 70%;
+            clear: both;
+            word-wrap: break-word;
+            position: relative;
+            transition: var(--transition);
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .message.self {
+            background: linear-gradient(135deg, var(--primary), #b81d24);
+            float: right;
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+        
+        .message.other {
+            background: var(--light-dark);
+            float: left;
+            border-bottom-left-radius: 4px;
+        }
+        
+        .message .sender {
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: block;
+            font-size: 0.8rem;
+        }
+        
+        .message .timestamp {
+            font-size: 0.7rem;
+            opacity: 0.7;
+            text-align: right;
+            margin-top: 5px;
+        }
+        
+        .chat-input-container {
+            padding: 15px;
+            background: var(--dark);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .chat-input-form {
+            display: flex;
+            align-items: center;
+            background: var(--light-dark);
+            border-radius: 25px;
+            padding: 5px 15px;
+        }
+        
+        #message-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text);
+            padding: 12px;
+            font-size: 1rem;
+            outline: none;
+        }
+        
+        #message-input::placeholder {
+            color: var(--text-secondary);
+        }
+        
+        .chat-toolbar {
+            display: flex;
+            align-items: center;
+        }
+        
+        .chat-button {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .chat-button:hover {
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .send-button {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .send-button:hover {
+            background: var(--primary-dark);
+            transform: scale(1.05);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 80px;
+                padding: 15px 10px;
+            }
+            .current-user-info, .user-info {
+                display: none;
+            }
+            .current-user-avatar, .user-avatar {
+                margin-right: 0;
+            }
+            .section-title {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <!-- Left Sidebar -->
+        <div class="sidebar">
+            <div class="current-user">
+                <div class="current-user-avatar">{{currentUserInitials currentUser}}</div>
+                <div class="current-user-info">
+                    <h3>{{currentUser}}</h3>
+                    <div class="current-user-status">
+                        <span class="status-indicator"></span>
+                        <span>Online</span>
+                    </div>
+                </div>
+            </div>
+            
+            <h4 class="section-title">Active Users</h4>
+            <ul class="user-list" id="user-list">
+                {{#each users}}
+                <li class="user-item" data-username="{{this.name}}">
+                    <div class="user-avatar">{{userInitials this.name}}</div>
+                    <div class="user-info">
+                        <div class="user-name">{{this.name}}</div>
+                        <div class="user-status {{this.status}}">
+                            {{#if (eq this.status "online")}}
+                                Online
+                            {{else}}
+                                Last seen: {{this.lastSeen}}
+                            {{/if}}
+                        </div>
+                    </div>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+        
+        <!-- Main Chat Area -->
+        <div class="chat-area">
+            <div class="chat-header">
+                <div class="chat-title">Global Chat Room</div>
+            </div>
+            
+            <div id="messages"></div>
+            
+            <div class="chat-input-container">
+                <form id="chat-form" class="chat-input-form">
+                    <input id="message-input" autocomplete="off" placeholder="Type a message..." />
+                    <div class="chat-toolbar">
+                        <button type="button" class="chat-button" id="emoji-btn">
+                            <i class="far fa-smile"></i>
+                        </button>
+                        <button type="button" class="chat-button" id="file-btn">
+                            <i class="fas fa-paperclip"></i>
+                        </button>
+                        <button type="submit" class="chat-button send-button">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        // Get current user from template
+        const currentUser = "{{currentUser}}";
+        const socket = io();
+        
+        // Join the chat room
+        socket.emit('join', currentUser);
+        
+        // DOM elements
+        const messagesDiv = document.getElementById('messages');
+        const chatForm = document.getElementById('chat-form');
+        const messageInput = document.getElementById('message-input');
+        const userList = document.getElementById('user-list');
+        
+        // Helper to get initials from name
+        function getInitials(name) {
+            return name.split(' ').map(n => n[0]).join('').toUpperCase();
+        }
+        
+        // Set avatars with initials
+        document.querySelectorAll('.user-avatar').forEach(el => {
+            const username = el.closest('.user-item').dataset.username;
+            el.textContent = getInitials(username);
+        });
+        
+        // Auto-scroll to bottom of messages
+        function scrollToBottom() {
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+        
+        // Format timestamp
+        function formatTimestamp(date) {
+            return new Date(date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+        
+        // Add a new message to the chat
+        function addMessage(msg) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+            messageDiv.dataset.sender = msg.sender;
+            
+            messageDiv.innerHTML = `
+                <span class="sender">${msg.sender === currentUser ? 'You' : msg.sender}</span>
+                ${msg.text}
+                <span class="timestamp">${formatTimestamp(msg.timestamp)}</span>
+            `;
+            
+            messagesDiv.appendChild(messageDiv);
+            scrollToBottom();
+        }
+        
+        // Handle form submission
+        chatForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const messageText = messageInput.value.trim();
+            
+            if (messageText) {
+                const message = {
+                    sender: currentUser,
+                    text: messageText,
+                    timestamp: new Date()
+                };
+                
+                // Send message via socket.io
+                socket.emit('chat message', message);
+                
+                // Clear input
+                messageInput.value = '';
+            }
+        });
+        
+        // Socket.io event listeners
+        socket.on('chat message', function(msg) {
+            addMessage(msg);
+        });
+        
+        socket.on('user connected', function(data) {
+            // Update user list
+            console.log(`${data.username} connected`);
+        });
+        
+        socket.on('user disconnected', function(data) {
+            // Update user list
+            console.log(`${data.username} disconnected`);
+        });
+        
+        // Initial scroll to bottom
+        scrollToBottom();
+    </script>
+</body>
+</html>

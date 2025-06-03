@@ -1,0 +1,21 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Outer circle for unity -->
+  <circle cx="32" cy="32" r="30" stroke="#4F46E5" stroke-width="4" fill="#EEF2FF" />
+  
+  <!-- Two heads -->
+  <circle cx="22" cy="24" r="4" fill="#4F46E5"/>
+  <circle cx="42" cy="24" r="4" fill="#4F46E5"/>
+
+  <!-- Two bodies -->
+  <path d="M18 40C18 34 26 34 26 40V44H18V40Z" fill="#6366F1"/>
+  <path d="M38 40C38 34 46 34 46 40V44H38V40Z" fill="#6366F1"/>
+
+  <!-- Code brackets in center -->
+  <text x="28" y="36" font-size="10" font-family="monospace" fill="#1E40AF">{ }</text>
+
+  <!-- Connection line -->
+  <line x1="26" y1="24" x2="38" y2="24" stroke="#1E3A8A" stroke-width="2" stroke-dasharray="2 2" />
+
+  <!-- Bottom tag icon (</>) -->
+  <text x="24" y="56" font-size="12" font-family="monospace" fill="#1E3A8A">&lt;/&gt;</text>
+</svg>
